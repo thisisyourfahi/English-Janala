@@ -19,24 +19,25 @@ const loadWordDetail = id => {
     // console.log('loadWordDetail:', id);
     const urlWord = `https://openapi.programming-hero.com/api/word/${id}`;
     fetch(urlWord)
-        .then(res => res.json())
-        .then(data => displayWordDetail(data.data));
+    .then(res => res.json())
+    .then(data => displayWordDetail(data.data));
 }
 const loadLevelWord = (level) => {
+    manageSpinner(true);
     const url = `https://openapi.programming-hero.com/api/level/${level}`;
-
+    
     // applying styles on the selected lesson button
     const id = `btn-lesson-${level}`;
     activeInactive(id);
-
+    
     fetch(url)
-        .then(res => res.json())
-        .then(data => displayLevelWord(data.data));
+    .then(res => res.json())
+    .then(data => displayLevelWord(data.data));
 }
 const loadLessons = () => {
     fetch('https://openapi.programming-hero.com/api/levels/all')
-        .then(res => res.json())
-        .then(data => displayLesson(data.data));
+    .then(res => res.json())
+    .then(data => displayLesson(data.data));
 }
 loadLessons();
 
@@ -102,7 +103,7 @@ const displayLevelWord = words => {
             wordContainer.appendChild(wordCard);
         });
     }
-
+    manageSpinner(false);
 }
 
 // create a card with html 
@@ -125,7 +126,19 @@ const createACard = word => {
     return div;
 }
 
+// create word synonyms
 const createElement = arr => {
     const htmlElements = arr.map(el => `<span class="btn btn-outline btn-primary cursor-default">${el}</span>`);
     return htmlElements.join(' ');
+}
+
+// loadin animation
+const manageSpinner = stat => {
+    if (stat) {
+        document.getElementById('spinner').classList.remove('hidden');
+        document.getElementById('word-container').classList.add('hidden');
+    } else {
+        document.getElementById('spinner').classList.add('hidden');
+        document.getElementById('word-container').classList.remove('hidden');
+    }
 }
