@@ -51,9 +51,7 @@ const displayWordDetail = word => {
             <div>
                 <p class="font-bangla">সমার্থক শব্দ গুলো</p>
                 <div class="flex gap-2">
-                    <button class="btn btn-sm btn-outline btn-primary cursor-default">${word.synonyms[0]}</button>
-                    <button class="btn btn-sm btn-outline btn-primary cursor-default">${word.synonyms[1]}</button>
-                    <button class="btn btn-sm btn-outline btn-primary cursor-default">${word.synonyms[2]}</button>
+                    ${createElement(word.synonyms)}
                 </div>
             </div>
             <div class="modal-action">
@@ -125,4 +123,9 @@ const createACard = word => {
         </div>
     `;
     return div;
+}
+
+const createElement = arr => {
+    const htmlElements = arr.map(el => `<span class="btn btn-outline btn-primary cursor-default">${el}</span>`);
+    return htmlElements.join(' ');
 }
